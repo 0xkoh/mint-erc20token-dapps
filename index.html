@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="./app.js"></script>
+    <title>testDapps</title>
+</head>
+<body>
+    <h1>TestToken Dapps</h1>
+    <div id="btns">
+        <button onclick="connect();" id="connectBtn">Connect Wallet</button>
+        <form>
+            <p><input type="number" name="amount" id="amount" required> token</p>
+            <p><input type="button" value="submit" onclick="mintToken();"></p>
+        </form>
+        <button onclick="addToken();">add token</button>
+    </div>
+</body>
+</html>
