@@ -13,7 +13,7 @@ interface ERC20 {
  
 }
 
-contract TokenFaucet {
+contract mintERC20 {
     
     ERC20 token;
     
@@ -35,8 +35,9 @@ contract TokenFaucet {
     }
 
     function mintToken(uint256 _amount) payable external {
-        require(token.balanceOf(address(this)) >= _amount, "Error: ");
-        require(msg.value == _amount / 1000 * value, "Error: ");
+        require(token.balanceOf(address(this)) >= _amount, "Error: Quantities in excess of the contract balance cannot be requested.");
+        require(msg.value == _amount / 1000 * value, "Error: Not commensurate with token price.");
+        // Solidityでは小数点以下の値を扱うことができないので、割っている。
         
         balance += msg.value;
         token.transfer(msg.sender, _amount);
@@ -56,13 +57,13 @@ contract TokenFaucet {
     }
 
     function withdraw(uint256 _amount) external onlyOwner {
-        require(balance >= _amount, "Error: ");
+        require(balance >= _amount, "Error: Excess over balance.");
         balance -= _amount;
         (bool success, ) = payable(msg.sender).call{ value:_amount }("");
-        require(success, "Error: ");
+        require(success, "Error: Token transfer failed.");
     }
 
-    function getBalance() external view returns(uint256){
+    function getBalance() external view returns(uint256) {
         return balance;
     }
 }
